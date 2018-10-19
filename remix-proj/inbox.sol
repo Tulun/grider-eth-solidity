@@ -13,6 +13,7 @@ contract Inbox {
         message = newMessage;
     }
     
+    // Function Name      Function Type (view means it doesn't modify the data.)  
     function getMessage() public view returns (string) {
         return message;
     }
