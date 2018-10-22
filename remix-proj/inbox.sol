@@ -1,6 +1,7 @@
 pragma solidity ^0.4.24;
 
 contract Inbox {
+    // Note: by declaring public, getMessage like function declared for free.
     string public message;
     
     // Constructor function. Has the same name as the contract.
@@ -14,7 +15,7 @@ contract Inbox {
     }
     
     // Function Name      Function Type (view means it doesn't modify the data.)  
-    function getMessage() public view returns (string) {
-        return message;
-    }
+    // function getMessage() public view returns (string) {
+    //     return message;
+    // }
 }
