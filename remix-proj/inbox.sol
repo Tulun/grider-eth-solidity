@@ -1,10 +1,10 @@
-pragma solidity ^0.4.17;
+pragma solidity ^0.4.24;
 
 contract Inbox {
     string public message;
     
     // Constructor function. Has the same name as the contract.
-    function Inbox(string initialMessage) public {
+    constructor(string initialMessage) public {
         message = initialMessage;
     }
     
