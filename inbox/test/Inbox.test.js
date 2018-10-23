@@ -5,11 +5,10 @@ const Web3 = require('web3');
 // Provider might change depending what network we point to on the blockchain.
 const web3 = new Web3(ganache.provider());
 
-beforeEach( () => {
+ beforeEach(async () => {
   // Get a list of all accounts
-  const accounts = web3.eth.getAccounts().then( fetchedAccounts => {
-    console.log(fetchedAccounts);
-  })
+  const accounts = await web3.eth.getAccounts();
+  console.log(accounts);
   // Use one of the accounts to deploy.
 });
 
