@@ -4,8 +4,8 @@ const Web3 = require('web3');
 const { interface, bytecode } = require('../compile');
 
 // Provider might change depending what network we point to on the blockchain.
-// const provider = ganache.provider();
-const provider = "https://ropsten.infura.io/v3/37016137b80649469d2b853488f76e4f";
+const provider = ganache.provider();
+// const provider = "https://ropsten.infura.io/v3/37016137b80649469d2b853488f76e4f";
 const web3 = new Web3(provider);
  
 let accounts, inbox;
