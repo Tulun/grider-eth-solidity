@@ -26,8 +26,16 @@ describe('Inbox', () => {
   })
 
   it('has a default message', async () => {
+    // Read only
     const message = await inbox.methods.message().call();
     assert.equal(message, INITIAL_MESSAGE);
   });
+
+  it('can change the message', async () => {
+    // What account is paying for it?
+    await inbox.methods.setMessage("Schmoopy").send({ from: accounts[0], gas: "1000000" })
+    const message = await inbox.methods.message().call();
+    assert.equal(message, "Schmoopy");
+  })
 
 })
