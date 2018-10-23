@@ -4,8 +4,9 @@ const Web3 = require('web3');
 const { interface, bytecode } = require('../compile');
 
 // Provider might change depending what network we point to on the blockchain.
-const web3 = new Web3(ganache.provider());
-
+const provider = ganache.provider();
+const web3 = new Web3(provider);
+ 
 let accounts, inbox;
  beforeEach(async () => {
   // Get a list of all accounts
@@ -14,10 +15,18 @@ let accounts, inbox;
   inbox =  await new web3.eth.Contract(JSON.parse(interface))
     .deploy({ data: bytecode, arguments: ["Hi there!"] })
     .send({ from : accounts[0], gas: "1000000" })
+
+  inbox.setProvider(provider);
 });
 
 describe('Inbox', () => {
   it('deploys a contract', () => {
     assert.ok(inbox.options.address);
   })
+
+  it('has a default message', async () => {
+    const message = await inbox.methods.message().call();
+    assert.equal(message, 'Hi there!');
+  });
+
 })
