@@ -19,16 +19,16 @@ const deploy = async () => {
   const nonce = await web3.utils.toHex(count);
   console.log('c', count, 'nonce', nonce);
 
-  const result = await new web3.eth.Contract(JSON.parse(interface))
-    .deploy({ data: bytecode, arguments: ["You suck McBain"] })
-    .send({ 
-      gas: "280868", 
-      // gasPrice: 5 * GWEI_TO_WEI, 
-      from: accounts[0],
-      // nonce
-    });
+  // const result = await new web3.eth.Contract(JSON.parse(interface))
+  //   .deploy({ data: bytecode, arguments: ["You suck McBain"] })
+  //   .send({ 
+  //     gas: "280868", 
+  //     // gasPrice: 5 * GWEI_TO_WEI, 
+  //     from: accounts[0],
+  //     // nonce
+  //   });
 
-  console.log('instance of contract', result);
+  // console.log('instance of contract', result);
 };
 
 deploy();
