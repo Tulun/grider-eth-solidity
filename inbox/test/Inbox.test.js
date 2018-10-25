@@ -15,7 +15,7 @@ const INITIAL_MESSAGE = "Hi there!"
   accounts = await web3.eth.getAccounts();
   // Use one of the accounts to deploy.
   inbox =  await new web3.eth.Contract(JSON.parse(interface))
-    .deploy({ data: bytecode, arguments: [INITIAL_MESSAGE] })
+    .deploy({ data: `0x${bytecode}`, arguments: [INITIAL_MESSAGE] })
     .send({ from : accounts[0], gas: "1000000" })
 
   inbox.setProvider(provider);
