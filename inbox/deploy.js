@@ -22,7 +22,7 @@ const deploy = async () => {
   const result = await new web3.eth.Contract(JSON.parse(interface))
     .deploy({ data: bytecode, arguments: ["You suck McBain"] })
     .send({ 
-      gas: "4650000", 
+      gas: "280868", 
       // gasPrice: 5 * GWEI_TO_WEI, 
       from: accounts[0],
       // nonce
