@@ -14,8 +14,7 @@ contract Lottery {
     players.push(msg.sender);
   }
 
-  function pickWinner() public payable {
-    require(msg.sender == manager);
+  function pickWinner() public payable restrictedToOwner {
     uint index = random() % players.length;
     players[index].transfer(address(this).balance);
     players = new address[](0);
@@ -25,5 +24,8 @@ contract Lottery {
     return uint(keccak256(abi.encodePacked(block.difficulty, now, players)));
   }
   
-
+  modifier restrictedToOwner() {
+    require(msg.sender == manager);
+    _;
+  }
 }
