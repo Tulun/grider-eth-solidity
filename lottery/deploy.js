@@ -3,7 +3,7 @@ const Web3 = require('web3');
 const { interface, bytecode } = require('./compile');
 require('dotenv').config()
 
-const ropsten = `https://rinkeby.infura.io/v3/${process.env.INFURA_API_KEY}`;
+const ropsten = `https://ropsten.infura.io/v3/${process.env.INFURA_API_KEY}`;
 const provider = new HDWalletProvider(
   process.env.WORDS,
   ropsten
