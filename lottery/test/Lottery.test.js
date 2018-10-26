@@ -97,15 +97,10 @@ describe("Lottery Contract", () => {
   })
 
   it("Send money to the winner and resets the player array", async () => {
-    console.log(accounts);
-    accounts.map( async acc => {
-      console.log(await web3.eth.getBalance(acc))
-    });
     await lottery.methods.enter().send({
       from: accounts[0],
       value: web3.utils.toWei("2", "ether")
     });
-
 
     await lottery.methods.enter().send({
       from: accounts[1],
@@ -121,15 +116,16 @@ describe("Lottery Contract", () => {
     await lottery.methods.pickWinner().send({ from: accounts[0] })
     const initialBalance = web3.utils.toWei("100", "ether") / 10**18;
 
+    // Gather all the promises, filter out for the true value.
+    // This only seems to work with map and not find.
     const balances = (await Promise.all(accounts.map( async (acc, index) => {
       const currentBalance = await web3.eth.getBalance(acc) / 10**18;
       return currentBalance > initialBalance;
     }))).filter(x => x);
 
     assert(balances[0]);
-    const players = await lottery.methods.getPlayers().call({
-      from: accounts[0]
-    });
+
+    const players = await lottery.methods.getPlayers().call({ from: accounts[0] });
 
     assert.equal(0, players.length);
     // If looking to compare slightly amount of difference between balances for gas cost...
