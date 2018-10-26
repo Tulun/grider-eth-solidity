@@ -120,11 +120,11 @@ describe("Lottery Contract", () => {
     await lottery.methods.pickWinner().send({ from: accounts[0] })
     const initialBalance = web3.utils.toWei("100", "ether") / 10**18;
 
-    const balances = Promise.all(accounts.map( async (acc, index) => {
+    const balances = (await Promise.all(accounts.map( async (acc, index) => {
       const currentBalance = await web3.eth.getBalance(acc) / 10**18;
       return currentBalance > initialBalance;
-    }));
+    }))).filter(x => x);
 
-    assert((await balances).filter(val => val)[0]);
+    assert(balances[0]);
   })
 });
