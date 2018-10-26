@@ -20,13 +20,14 @@ const deploy = async () => {
   console.log('c', count, 'nonce', nonce);
 
   const result = await new web3.eth.Contract(JSON.parse(interface))
-    .deploy({ data: bytecode })
+    .deploy({ data: `0x${bytecode}` })
     .send({ 
       gas: "1000000", 
       from: accounts[0],
     });
 
-  console.log('instance of contract', result);
+  console.log('interface', interface);
+  console.log('contract address', result.options.address);
 };
 
 deploy();
