@@ -4,8 +4,6 @@ import './App.css';
 import web3 from './web3';
 import lottery from './lottery';
 
-console.log(lottery);
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +23,7 @@ class App extends Component {
     return (
       <div className="App">
         <h2>Lottery Contract</h2>
-        <p>{this.state.manager}</p>
+        <p>This contract is managed by: {this.state.manager}</p>
       </div>
     );
   }
