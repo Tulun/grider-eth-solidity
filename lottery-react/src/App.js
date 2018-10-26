@@ -7,7 +7,8 @@ class App extends Component {
   state = {
     manager: "",
     players: [],
-    balance: ""
+    balance: "",
+    value: ""
   }
 
   async componentDidMount() {
@@ -19,6 +20,12 @@ class App extends Component {
     this.setState({ manager, players, balance });
   }
 
+
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log('v', this.state.value);
+  }
+  
   render() {
     return (
       <div className="App">
@@ -27,6 +34,19 @@ class App extends Component {
           This contract is managed by: {this.state.manager}. <br />
           There are currently {this.state.players.length} people entered, competing to win {web3.utils.fromWei(this.state.balance, "ether")} ether.
         </p>
+        <hr />
+        <form>
+          <h4>Want to try your luck?</h4>
+          <div>
+            <label>Amount of ETH to enter:</label>
+            <input 
+              type="text"
+              onChange={event => this.setState({ value: event.target.value})}
+              value={this.state.value}
+            />
+            <button onClick={(event) => this.handleSubmit(event)}>Enter</button>
+          </div>
+        </form>
       </div>
     );
   }
