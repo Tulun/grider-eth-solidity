@@ -23,7 +23,10 @@ class App extends Component {
     return (
       <div className="App">
         <h2>Lottery Contract</h2>
-        <p>This contract is managed by: {this.state.manager}</p>
+        <p>
+          This contract is managed by: {this.state.manager}. <br />
+          There are currently {this.state.players.length} people entered, competing to win {web3.utils.fromWei(this.state.balance, "ether")} ether.
+        </p>
       </div>
     );
   }
