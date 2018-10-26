@@ -117,6 +117,7 @@ describe("Lottery Contract", () => {
       value: web3.utils.toWei("2", "ether")
     });
 
+    // Wrote this myself: Actually test if there is a random winner.
     await lottery.methods.pickWinner().send({ from: accounts[0] })
     const initialBalance = web3.utils.toWei("100", "ether") / 10**18;
 
@@ -126,6 +127,11 @@ describe("Lottery Contract", () => {
     }))).filter(x => x);
 
     assert(balances[0]);
+    const players = await lottery.methods.getPlayers().call({
+      from: accounts[0]
+    });
+
+    assert.equal(0, players.length);
     // If looking to compare slightly amount of difference between balances for gas cost...
     /* 
       const initialBalance = await web3.eth.getBalance(accounts[0]);
