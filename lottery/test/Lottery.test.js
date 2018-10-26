@@ -95,4 +95,36 @@ describe("Lottery Contract", () => {
     }
     assert(passed);
   })
+
+  it("Send money to the winner and resets the player array", async () => {
+    console.log(accounts);
+    accounts.map( async acc => {
+      console.log(await web3.eth.getBalance(acc))
+    });
+    await lottery.methods.enter().send({
+      from: accounts[0],
+      value: web3.utils.toWei("2", "ether")
+    });
+
+
+    await lottery.methods.enter().send({
+      from: accounts[1],
+      value: web3.utils.toWei("2", "ether")
+    });
+
+    await lottery.methods.enter().send({
+      from: accounts[2],
+      value: web3.utils.toWei("2", "ether")
+    });
+
+    await lottery.methods.pickWinner().send({ from: accounts[0] })
+    const initialBalance = web3.utils.toWei("100", "ether") / 10**18;
+
+    const balances = Promise.all(accounts.map( async (acc, index) => {
+      const currentBalance = await web3.eth.getBalance(acc) / 10**18;
+      return currentBalance > initialBalance;
+    }));
+
+    assert((await balances).filter(val => val)[0]);
+  })
 });
