@@ -21,11 +21,11 @@ class App extends Component {
   }
 
 
-  handleSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
     console.log('v', this.state.value);
   }
-  
+
   render() {
     return (
       <div className="App">
@@ -35,7 +35,7 @@ class App extends Component {
           There are currently {this.state.players.length} people entered, competing to win {web3.utils.fromWei(this.state.balance, "ether")} ether.
         </p>
         <hr />
-        <form>
+        <form onSubmit={this.onSubmit}>
           <h4>Want to try your luck?</h4>
           <div>
             <label>Amount of ETH to enter:</label>
@@ -44,7 +44,7 @@ class App extends Component {
               onChange={event => this.setState({ value: event.target.value})}
               value={this.state.value}
             />
-            <button onClick={(event) => this.handleSubmit(event)}>Enter</button>
+            <button type="submit">Enter</button>
           </div>
         </form>
       </div>
