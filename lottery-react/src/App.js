@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import web3 from './web3';
+
 
 class App extends Component {
+  async componentDidMount() {
+    const accounts = await web3.eth.getAccounts();
+
+    console.log(accounts)
+  }
   render() {
     return (
       <div className="App">
