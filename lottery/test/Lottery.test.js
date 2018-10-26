@@ -126,5 +126,14 @@ describe("Lottery Contract", () => {
     }))).filter(x => x);
 
     assert(balances[0]);
+    // If looking to compare slightly amount of difference between balances for gas cost...
+    /* 
+      const initialBalance = await web3.eth.getBalance(accounts[0]);
+
+      await lottery.methods.pickWinner().send({ from: accounts[0] });
+
+      const finalBalance = await web3.eth.getBalance(accounts[0]);
+      assert(difference > web3.utilts.toWei("1.8", "ether"));
+    */
   })
 });
