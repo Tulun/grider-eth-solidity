@@ -46,6 +46,8 @@ describe("Campaigns", () => {
       value: '200',
       from: accounts[1]
     });
+    
+    // Look up single value in mapping.
     const isContributor = await campaign.methods.approvers(accounts[1]).call();
     assert(isContributor);
   });
@@ -100,5 +102,5 @@ describe("Campaigns", () => {
 
     assert(balance > 104);
   });
-  
+
 })
