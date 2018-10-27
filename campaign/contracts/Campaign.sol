@@ -7,12 +7,14 @@ contract Campaign {
         uint value;
         address recipient;
         bool complete;
+        uint approvalCount;
+        mapping(address => bool) approvals;
     }
     
     Request[] public requests;
     address public manager;
     uint public minimumContribution;
-    address[] public approvers;
+    mapping(address => bool) public approvers;
     
   modifier restrictedToOwner() {
     require(msg.sender == manager);
@@ -27,18 +29,32 @@ contract Campaign {
     function contribute() public payable {
         require(msg.value > minimumContribution);
         
-        approvers.push(msg.sender);
+        approvers[msg.sender] = true;
     }
     
     function createRequest(string description, uint value, address recipient) 
         public restrictedToOwner {
-        Request newRequest = Request({
+        // Use of memory: Memory SCOPES it to a particular function. 
+        // Storage would point it to the global instance of this variable, if it had one.    
+        Request memory newRequest = Request({
            description: description,
            value: value,
            recipient: recipient,
-           complete: false
+           complete: false,
+           approvalCount: 0
         });
         
         requests.push(newRequest);
+    }
+    
+    function approveRequest(uint index) public {
+        Request storage request = requests[index];
+        
+        require(approvers[msg.sender]);
+        require(!request.approvals[msg.sender]);
+        
+        request.approvals[msg.sender] = true;
+        request.approvalCount++;
+        
     }
 }
